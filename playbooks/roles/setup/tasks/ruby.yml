@@ -1,0 +1,15 @@
+- name: ensure necessary gpg keys are imported for RVM install
+  remote_user: deploy
+  command: 'gpg --keyserver hkp://keys.gnupg.net --recv-keys {{ rvm_gpg_keys }}'
+
+- name: install rvm
+  remote_user: deploy
+  shell: curl -L https://get.rvm.io | bash -s stable --autolibs=2 creates=~/.rvm/
+
+- name: install ruby
+  remote_user: deploy
+  shell: /home/deploy/.rvm/bin/rvm install --default {{ ruby }} creates=~/.rvm/rubies/{{ ruby }}
+
+- name: install bundler
+  remote_user: deploy
+  command: bash -lc "gem install bundler"

@@ -1,0 +1,4 @@
+.DS_Store
+playbooks/hosts
+playbooks/digital_ocean_token.yml
+playbooks/public_keys/mybema-user

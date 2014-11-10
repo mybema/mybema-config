@@ -1,0 +1,30 @@
+---
+- name: Install vim
+  apt: name=vim state=present
+
+- name: Add deploy user
+  action: user name=deploy shell=/bin/bash append=yes state=present password={{ deploy_password }}
+
+- name: set up authorized_keys for the deploy user
+  authorized_key: user=deploy key="{{ item }}"
+  with_file:
+    - public_keys/mybema-user
+
+- name: Remove sudo group rights
+  action: lineinfile dest=/etc/sudoers regexp="^%sudo" state=absent
+
+- name: Add deploy user to sudoers
+  action: lineinfile dest=/etc/sudoers regexp="deploy ALL" line="deploy ALL=(ALL) ALL" state=present
+
+- name: Disallow password authentication
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+
+- name: Allow agent forwarding
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="AllowAgentForwarding" line="AllowAgentForwarding yes" state=present
+
+- name: Disallow root SSH access
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="PermitRootLogin" line="PermitRootLogin no" state=present
+  notify: restart ssh
+
+- name: creates .ssh directory for deploy user
+  file: path=/home/deploy/.ssh/ state=directory owner=deploy mode=700

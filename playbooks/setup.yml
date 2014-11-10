@@ -1,0 +1,13 @@
+---
+- hosts: production
+  remote_user: deploy
+  roles:
+    - setup
+    - postgresql
+    - nginx
+    - puma
+    - redis
+    - deploy
+
+  vars_files:
+    - vars.yml

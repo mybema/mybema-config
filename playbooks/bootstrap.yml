@@ -1,0 +1,9 @@
+---
+- hosts: production
+  remote_user: root
+  sudo: true
+  roles:
+    - bootstrap
+
+  vars_files:
+    - vars.yml
