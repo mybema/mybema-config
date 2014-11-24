@@ -52,10 +52,6 @@ namespace :provisioning do
     puts "\nSetting up the VPS"
     system 'ansible-playbook playbooks/setup.yml -i playbooks/hosts -K'
   end
-
-  task :restart_server do
-    system 'ansible-playbook playbooks/restart.yml -i playbooks/hosts'
-  end
 end
 
 task :destroy_vps do
