@@ -1,0 +1,21 @@
+# /etc/init/puma.conf - Puma config
+
+description "Puma Background Worker"
+
+# no "start on", we don't want to automatically start
+stop on (stopping puma-manager or runlevel [06])
+
+# change apps to match your deployment user if you want to use this as a less privileged user (recommended!)
+setuid deploy
+setgid deploy
+
+respawn
+respawn limit 3 30
+
+instance {{app_directory}}
+
+script
+cd {{app_directory}}
+logger -t puma "Starting server: $app"
+exec bundle exec puma -C {{app_directory}}config/puma/production.rb
+end script
