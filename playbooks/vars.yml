@@ -4,6 +4,7 @@ ruby: ruby-2.1.2
 app_name: mybema
 rvm_gpg_keys: 'D39DC0E3'
 app_directory: /home/deploy/mybema/
+git_repository: https://github.com/pawel2105/mybema.git
 # generated using `openssl passwd -salt salty -1 mypass`
 deploy_password: '$1$salty$WoG5tu8Y63f.rmnpDr9lz0'
 system_packages:
