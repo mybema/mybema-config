@@ -1,4 +1,3 @@
 - include: firewall.yml tags=firewall
 - include: system.yml tags=system
-- include: setup.yml tags=setup
 - include: ruby.yml tags=ruby

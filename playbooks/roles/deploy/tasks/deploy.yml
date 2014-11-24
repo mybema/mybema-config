@@ -1,26 +1,56 @@
----
-# pulling from git would be better here
-- name: synchronize app files
-  synchronize: src=../../../../ dest={{ app_directory }}
+- name: Create deployment directory
+  file: path={{app_directory}} owner=deploy group=deploy state=directory
+
+- name: Clone repo from github
+  git: repo={{ git_repository }} dest={{ app_directory }}
+
+- name: Make shared directories
+  file: path={{app_directory}}/{{item}} group=deploy owner=deploy state=directory
+  with_items:
+    - tmp/puma
+    - tmp/sockets
+    - log
+    - public
+    - bundle
+    - bin
+    - config/puma
+  tags: shared
+
+- name: Add puma config file
+  template: src=puma_production.j2 dest={{app_directory}}config/puma/production.rb force=yes mode=755
+
+- name: Install database.yml
+  template: src=database.yml.j2 dest={{app_directory}}config/database.yml force=yes mode=755 owner=deploy
+
+- name: Copy secrets file
+  template: src=secrets.yml.j2 dest={{app_directory}}config/secrets.yml force=yes mode=755 owner=deploy
+- name: setup database
+  command: bash -lc "cd {{ app_directory}} RAILS_ENV=production bundle exec rake db:setup"
 
 - name: bundle install
   command: bash -lc "cd {{ app_directory }} && bundle install --without development test"
 
 - name: run migrations
-  command: bash -lc "cd {{ app_directory}} bundle exec rake db:migrate"
+  command: bash -lc "RAILS_ENV=production bundle exec rake db:migrate" chdir={{app_directory}}
 
-- name: get puma pid id
-  command: cat {{ app_directory }}tmp/puma/pid
-  ignore_errors: True
-  register: pid_id
+- name: run seeds
+  command: bash -lc "RAILS_ENV=production bundle exec rake db:seed" chdir={{app_directory}}
 
-- name: restart puma
-  command: kill -s SIGUSR2 {{ pid_id.stdout }}
-  register: restart_puma_result
-  ignore_errors: True
-  notify: restart nginx
+- name: precompile assets
+  command: bash -lc "RAILS_ENV=production bundle exec rake assets:precompile" chdir={{app_directory}}
+
+# - name: get puma pid
+#   command: cat {{ app_directory }}tmp/puma.pid
+#   ignore_errors: True
+#   register: pid_id
+
+# - name: Restart puma
+#   command: kill -s SIGUSR2 {{ pid_id.stdout }}
+#   register: restart_puma_result
+#   ignore_errors: True
+#   notify: restart nginx
 
 - name: start puma
-  command: bash -lc "cd {{ app_directory }} && puma"
-  when: restart_puma_result|failed
+  command: bash -lc "RAILS_ENV=production bundle exec puma -C config/puma/production.rb &" chdir={{ app_directory}}
+  # when: restart_puma_result|failed
   notify: restart nginx

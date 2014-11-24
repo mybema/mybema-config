@@ -39,6 +39,3 @@
   postgresql_db: name={{app_name}}_production owner=deploy state=present
   sudo: yes
   sudo_user: postgres
-
-- name: setup database
-  command: bash -lc "cd {{ app_directory}} RAILS_ENV=production bundle exec rake db:setup"
