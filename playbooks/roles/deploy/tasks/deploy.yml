@@ -29,6 +29,8 @@
 
 - name: bundle install
   command: bash -lc "cd {{ app_directory }} && bundle install --without development test"
+  retries: 3
+  delay: 10
 
 - name: run migrations
   command: bash -lc "RAILS_ENV=production bundle exec rake db:migrate" chdir={{app_directory}}
