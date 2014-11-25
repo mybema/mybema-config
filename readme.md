@@ -12,6 +12,9 @@ The only things you need before getting started are the following:
 
 * A DigitalOcean account
 * Python and a way to install Ansible
+* dopy
+
+    sudo pip install dopy
 
 Installation steps
 ==================
@@ -31,31 +34,19 @@ Add your DigitalOcean API token:
 
     cp playbooks/digital_ocean_token.yml.example playbooks/digital_ocean_token.yml
 
-Create a new VPS and update the root password:
+Add your Amazon S3 keys to:
 
-    ruby 1_create_vps.rb
+    playbooks/roles/deploy/templates/secrets.yml.j2
 
-Add your IP to a new hosts file:
+Run the rake task to provision your Mybema droplet:
 
-    cp playbooks/hosts.example playbooks/hosts
-
-Copy your SSH key onto the VPS:
-
-    ruby 2_copy_ssh_keys.rb
-
-Run the playbook to bootstrap the VPS:
-
-    ruby 3_bootstrap_vps.rb
-    # password is mypass
-
-Run the rest of the setup using the setup playbook:
-
-    ruby 4_setup_vps.rb
+    rake
+    # your deploy password is mypass
 
 Destroying the droplet
 ======================
 If you want to completely destroy the droplet, run the following:
 
-    ruby 5_destroy_vps.rb
+    rake destroy_vps
 
 Note that this is permanent and you will not be able to get your data back.
