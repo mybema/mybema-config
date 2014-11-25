@@ -50,3 +50,13 @@ If you want to completely destroy the droplet, run the following:
     rake destroy_vps
 
 Note that this is permanent and you will not be able to get your data back.
+
+Contributing
+============
+Contributions are welcome. Please follow the step below:
+
+1. Fork it ( https://github.com/pawel2105/mybema-config/fork )
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
