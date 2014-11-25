@@ -42,5 +42,5 @@
   command: bash -lc "RAILS_ENV=production bundle exec rake assets:precompile" chdir={{app_directory}}
 
 - name: start puma
-  command: bash -lc "RAILS_ENV=production bundle exec puma -C config/puma/production.rb &" chdir={{ app_directory}}
+  command: bash -lc "RAILS_ENV=production bundle exec puma -C config/puma/production.rb -d" chdir={{ app_directory}}
   notify: restart nginx
