@@ -1,6 +1,6 @@
 What is this?
 =============
-This repository contains [Ansible](http://www.ansible.com) playbooks and some ruby scripts that allow you to quickly install a [Mybema](http://www.github.com/pawel2105/mybema) instance on a [DigitalOcean](http://www.digitalocean.com) VPS.
+This repository contains a collection of [Ansible](http://www.ansible.com) playbooks that allow you to quickly install a [Mybema](http://www.github.com/pawel2105/mybema) instance on a [DigitalOcean](http://www.digitalocean.com) VPS. This project allows you to get up and running very quickly, with minimal configuration.
 
 Caveat: WIP
 ===========
@@ -10,11 +10,12 @@ Prerequisites
 =============
 The only things you need before getting started are the following:
 
-* A DigitalOcean account
+* OSX or Linux. Windows is not supported
+* A working DigitalOcean account
+* A set of SSH keys uploaded to DigitalOcean. You can do that [here](https://cloud.digitalocean.com/ssh_keys)
 * Python and a way to install Ansible
-* dopy
-
-    sudo pip install dopy
+* `dopy` which can be installed using `sudo pip install dopy`
+* An Amazon S3 account and access tokens
 
 Installation steps
 ==================
@@ -22,7 +23,7 @@ Run the following steps in order to set up your instance. First clone this repo:
 
     git clone git@github.com:pawel2105/mybema-config.git
 
-Install the necessary gems:
+Then `cd` into that directory and install the necessary gems:
 
     bundle install
 
@@ -30,7 +31,7 @@ Create a file to store your SSH key and add it to the file once it's created:
 
     cp playbooks/public_keys/mybema-user.example playbooks/public_keys/mybema-user
 
-Add your DigitalOcean API token:
+Create a DigitalOcean configuration file and add your API token:
 
     cp playbooks/digital_ocean_token.yml.example playbooks/digital_ocean_token.yml
 
@@ -38,10 +39,9 @@ Add your Amazon S3 keys to:
 
     playbooks/roles/deploy/templates/secrets.yml.j2
 
-Run the rake task to provision your Mybema droplet:
+Run the rake task to provision your Mybema droplet (note that your password is `mypass`):
 
     rake
-    # your deploy password is mypass
 
 Destroying the droplet
 ======================
