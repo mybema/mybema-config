@@ -39,18 +39,6 @@
 - name: precompile assets
   command: bash -lc "RAILS_ENV=production bundle exec rake assets:precompile" chdir={{app_directory}}
 
-# - name: get puma pid
-#   command: cat {{ app_directory }}tmp/puma.pid
-#   ignore_errors: True
-#   register: pid_id
-
-# - name: Restart puma
-#   command: kill -s SIGUSR2 {{ pid_id.stdout }}
-#   register: restart_puma_result
-#   ignore_errors: True
-#   notify: restart nginx
-
 - name: start puma
   command: bash -lc "RAILS_ENV=production bundle exec puma -C config/puma/production.rb &" chdir={{ app_directory}}
-  # when: restart_puma_result|failed
   notify: restart nginx
