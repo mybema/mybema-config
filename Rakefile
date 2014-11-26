@@ -47,7 +47,7 @@ namespace :provisioning do
 
   task :bootstrap_vps do
     puts 'Waiting for the droplet to boot up'
-    (1..150).each { |x| print '.'; sleep(1) }
+    # (1..150).each { |x| print '.'; sleep(1) }
     puts "\nSetting up the VPS"
     system 'ansible-playbook playbooks/bootstrap.yml -i playbooks/hosts'
   end
