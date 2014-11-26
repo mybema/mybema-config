@@ -37,7 +37,12 @@ namespace :provisioning do
     $ip_address      = droplet_networks.first.ip_address
 
     system "cp ./playbooks/hosts.example ./playbooks/hosts"
-    system "sed -i '' 's/^\([0-9]\{1,3\}\.\)\{3\}[0-9]\{1,3\}$/#{$ip_address}/' ./playbooks/hosts"
+
+    if RUBY_PLATFORM.scan(/darwin/).any?
+      system "sed -i '' -E 's/([0-9]{1,3}\.){3}[0-9]{1,3}/#{$ip_address}/' ./playbooks/hosts"
+    elsif RUBY_PLATFORM.scan(/linux/).any?
+      system "sed -i -r 's/([0-9]{1,3}\.){3}[0-9]{1,3}/#{$ip_address}/' ./playbooks/hosts"
+    end
   end
 
   task :bootstrap_vps do
