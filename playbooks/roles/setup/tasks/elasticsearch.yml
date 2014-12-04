@@ -1,0 +1,14 @@
+- name: install jre-headless
+  apt: name={{ item }} state=latest force=yes
+  with_items:
+    - openjdk-7-jre-headless
+  sudo: yes
+
+- name: Download ElasticSearch package
+  get_url: url=http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.deb dest=~/elasticsearch-0.90.0.deb
+  sudo: yes
+
+- name: Install ES .deb file
+  shell: dpkg -i ~/elasticsearch-0.90.0.deb
+  notify: restart elasticsearch
+  sudo: yes

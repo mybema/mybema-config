@@ -38,6 +38,9 @@
 - name: run seeds
   command: bash -lc "RAILS_ENV=production bundle exec rake db:seed" chdir={{app_directory}}
 
+- name: create elasticsearch indices
+  command: bash -lc "RAILS_ENV=production bundle exec rake environment elasticsearch:import:all" chdir={{app_directory}}
+
 - name: precompile assets
   command: bash -lc "RAILS_ENV=production bundle exec rake assets:precompile" chdir={{app_directory}}
 

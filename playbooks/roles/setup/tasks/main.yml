@@ -1,3 +1,4 @@
 - include: firewall.yml tags=firewall
 - include: system.yml tags=system
 - include: ruby.yml tags=ruby
+- include: elasticsearch.yml tags=elasticsearch
