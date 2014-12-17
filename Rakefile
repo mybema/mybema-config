@@ -28,7 +28,7 @@ namespace :provisioning do
     droplet = DropletKit::Droplet.new(name: 'mybema',
                                       region: 'nyc2',
                                       image: 'ubuntu-14-04-x64',
-                                      size: '512mb',
+                                      size: '2gb',
                                       ssh_keys: [ssh_keys.first])
     client.droplets.create(droplet)
 
