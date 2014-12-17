@@ -43,10 +43,11 @@ namespace :provisioning do
     elsif RUBY_PLATFORM.scan(/linux/).any?
       system "sed -i -r 's/([0-9]{1,3}\.){3}[0-9]{1,3}/#{$ip_address}/' ./playbooks/hosts"
     end
+
+    sleep(180)
   end
 
   task :bootstrap_vps do
-    puts 'Waiting for the droplet to boot up'
     puts "\nSetting up the VPS"
     system 'ansible-playbook playbooks/bootstrap.yml -i playbooks/hosts'
   end
