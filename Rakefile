@@ -5,6 +5,7 @@ require 'securerandom'
 require 'yaml'
 
 task :default do
+  Rake::Task["provisioning:add_secret_key"].invoke
   Rake::Task["provisioning:create_vps"].invoke
   Rake::Task["provisioning:bootstrap_vps"].invoke
   Rake::Task["provisioning:setup_vps"].invoke
