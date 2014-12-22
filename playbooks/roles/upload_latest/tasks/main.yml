@@ -1,0 +1,24 @@
+- name: Fetch latest git changes
+  git: repo={{ git_repository }} dest={{ app_directory }} version=0.0.1
+
+- name: bundle install
+  command: bash -lc "cd {{ app_directory }} && bundle install --without development test"
+  retries: 3
+  delay: 10
+
+- name: run migrations
+  command: bash -lc "RAILS_ENV=production bundle exec rake db:migrate" chdir={{app_directory}}
+
+- name: run seeds
+  command: bash -lc "RAILS_ENV=production bundle exec rake db:seed" chdir={{app_directory}}
+
+- name: precompile assets
+  command: bash -lc "RAILS_ENV=production bundle exec rake assets:precompile" chdir={{app_directory}}
+
+- name: get pid id
+  command: cat {{ app_directory }}tmp/puma.pid
+  register: pid_id
+
+- name: restart puma
+  command: kill -s SIGUSR2 {{ pid_id.stdout }}
+  notify: restart nginx

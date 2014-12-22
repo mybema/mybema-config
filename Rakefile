@@ -10,6 +10,12 @@ task :default do
   Rake::Task["provisioning:setup_vps"].invoke
 end
 
+namespace :mybema do
+  task :update do
+    system 'ansible-playbook playbooks/upload_latest.yml -i playbooks/hosts -K'
+  end
+end
+
 namespace :provisioning do
   task :add_secret_key do
     secret = SecureRandom.hex(64)
