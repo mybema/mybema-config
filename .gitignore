@@ -2,3 +2,4 @@
 playbooks/hosts
 playbooks/digital_ocean_token.yml
 playbooks/public_keys/mybema-user
+playbooks/roles/deploy/templates/secrets.yml.j2
