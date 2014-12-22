@@ -37,7 +37,7 @@ Create a DigitalOcean configuration file and add your API token:
 
 Create the secrets file:
 
-    mv playbooks/roles/deploy/templates/secrets.yml.j2.example playbooks/roles/deploy/templates/secrets.yml.j2
+    cp playbooks/roles/deploy/templates/secrets.yml.j2.example playbooks/roles/deploy/templates/secrets.yml.j2
 
 Then add your Amazon S3 keys to it. Leave the `secret_key_base` value as `XXX`.
 
