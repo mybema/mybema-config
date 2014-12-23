@@ -15,9 +15,6 @@
 - name: precompile assets
   command: bash -lc "RAILS_ENV=production bundle exec rake assets:precompile" chdir={{app_directory}}
 
-- name: restart sidekiq
-  command: bash -lc "sudo service sidekiq restart index=0"
-
 - name: get pid id
   command: cat {{ app_directory }}tmp/puma.pid
   register: pid_id
@@ -25,3 +22,4 @@
 - name: restart puma
   command: kill -s SIGUSR2 {{ pid_id.stdout }}
   notify: restart nginx
+  notify: restart sidekiq
