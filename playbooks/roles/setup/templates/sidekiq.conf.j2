@@ -21,8 +21,6 @@ respawn limit 3 30
 # normal exit codes, it just respawns.
 normal exit 0 TERM
 
-instance $index
-
 script
 # this script runs in /bin/sh by default
 # respawn as bash so we can source in rbenv
@@ -30,6 +28,6 @@ exec /bin/bash <<'EOT'
   source /home/deploy/.rvm/scripts/rvm
 
   cd /home/deploy/mybema
-  exec sidekiq -i ${index} -e production
+  exec sidekiq -e production
 EOT
 end script
