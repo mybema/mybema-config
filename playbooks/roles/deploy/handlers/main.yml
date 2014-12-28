@@ -1,6 +1,7 @@
 ---
 - name: restart nginx
   service: name=nginx state=restarted
+  sudo: yes
 
 - name: restart sidekiq
   service: name=sidekiq state=restarted
