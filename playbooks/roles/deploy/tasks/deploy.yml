@@ -2,7 +2,7 @@
   file: path={{app_directory}} owner=deploy group=deploy state=directory
 
 - name: Clone repo from github
-  git: repo={{ git_repository }} dest={{ app_directory }} version=0.2.1
+  git: repo={{ git_repository }} dest={{ app_directory }} version=0.2.2
 
 - name: Make shared directories
   file: path={{app_directory}}/{{item}} group=deploy owner=deploy state=directory
