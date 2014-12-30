@@ -31,3 +31,4 @@ system_packages:
   - pkg-config
   - libffi-dev
   - libpq-dev
+  - imagemagick
