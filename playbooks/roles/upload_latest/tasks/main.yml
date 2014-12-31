@@ -1,5 +1,5 @@
 - name: Fetch latest git changes
-  git: repo={{ git_repository }} dest={{ app_directory }} version=0.2.3
+  git: repo={{ git_repository }} dest={{ app_directory }} version=0.2.6
 
 - name: bundle install
   command: bash -lc "cd {{ app_directory }} && bundle install --without development test"
