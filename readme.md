@@ -42,9 +42,11 @@ Create the secrets file:
 
 Then add your Amazon S3 keys to it. Leave the `secret_key_base` value as `XXX`.
 
-Run the rake task to provision your Mybema droplet (note that your password is `mypass`):
+Run the rake task to provision your Mybema droplet:
 
     rake
+    
+This should take around 30 minutes to complete. Within the first 5 minutes you may be asked to trust the VPS you're deploying to. You should type `yes` and hit the return (enter) key. Then at around the 10 minute mark it will ask you for your password. Enter `mypass` and hit return.
     
 Running into problems
 =====================
