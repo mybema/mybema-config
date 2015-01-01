@@ -45,6 +45,10 @@ Then add your Amazon S3 keys to it. Leave the `secret_key_base` value as `XXX`.
 Run the rake task to provision your Mybema droplet (note that your password is `mypass`):
 
     rake
+    
+Running into problems
+=====================
+Sometimes Digitalocean takes a little longer than expected to create a new droplet. If that happen you'll see a task will fail very early during the above rake task. You'll either want to destroy that droplet and try again, or you can retry on the same VPS. To retry, you should run the 2 ansible playbook commands found in the [alternative installation](https://github.com/mybema/mybema-config/wiki/Alternative-installation#if-you-dont-use-digitalocean) page. This will prevent you from spinning up another droplet on DO.
 
 Destroying the droplet
 ======================
