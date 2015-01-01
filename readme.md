@@ -47,6 +47,12 @@ Run the rake task to provision your Mybema droplet:
     rake
     
 This should take around 30 minutes to complete. Within the first 5 minutes you may be asked to trust the VPS you're deploying to. You should type `yes` and hit the return (enter) key. Then at around the 10 minute mark it will ask you for your password. Enter `mypass` and hit return.
+
+Once that's all done, because of an existing [small bug with our ansible tasks](https://github.com/mybema/mybema-config/issues/4), you'll need to SSH to your newly created VPS and restart nginx using (the password is the same as above):
+
+    sudo service nginx restart
+    
+Once that's done, you can point your browser at the IP address and you're good to go!
     
 Running into problems
 =====================
