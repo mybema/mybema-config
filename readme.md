@@ -2,19 +2,20 @@ What is this?
 =============
 This repository contains a collection of [Ansible](http://www.ansible.com) playbooks that allow you to quickly install a [Mybema](http://www.github.com/pawel2105/mybema) instance on a [DigitalOcean](http://www.digitalocean.com) VPS. This project allows you to get up and running very quickly, with minimal configuration.
 
-Caveat: WIP
-===========
-This project is a work-in-progress. Things may break. If you see anything that can be improved, please submit a pull request.
-
 Prerequisites
 =============
 The only things you need before getting started are the following:
 
 * OSX or Linux. Windows is not supported
-* A working DigitalOcean account
-* A set of SSH keys uploaded to DigitalOcean. You can do that [here](https://cloud.digitalocean.com/ssh_keys)
 * Python and a way to install Ansible
 * `dopy` which can be installed using `sudo pip install dopy`
+
+Other requirements
+==================
+You should also the the following accounts and credentials. If you don't, please refer to the [alternative installation](https://github.com/mybema/mybema-config/wiki/Alternative-installation) wiki page in this repository for instructions.
+
+* A working DigitalOcean account
+* A set of SSH keys uploaded to DigitalOcean. You can do that [here](https://cloud.digitalocean.com/ssh_keys)
 * An Amazon S3 account and access tokens
 
 Installation steps
