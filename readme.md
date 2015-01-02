@@ -45,18 +45,25 @@ Then add your Amazon S3 keys to it. Leave the `secret_key_base` value as `XXX`.
 Run the rake task to provision your Mybema droplet:
 
     rake
-    
+
 This should take around 30 minutes to complete. Within the first 5 minutes you may be asked to trust the VPS you're deploying to. You should type `yes` and hit the return (enter) key. Then at around the 10 minute mark it will ask you for your password. Enter `mypass` and hit return.
 
 Once that's all done, because of an existing [small bug with our ansible tasks](https://github.com/mybema/mybema-config/issues/4), you'll need to SSH to your newly created VPS and restart nginx using (the password is the same as above):
 
     sudo service nginx restart
-    
+
 Once that's done, you can point your browser at the IP address and you're good to go!
-    
+
 Running into problems
 =====================
 Sometimes Digitalocean takes a little longer than expected to create a new droplet. If that happen you'll see a task will fail very early during the above rake task. You'll either want to destroy that droplet and try again, or you can retry on the same VPS. To retry, you should run the 2 ansible playbook commands found in the [alternative installation](https://github.com/mybema/mybema-config/wiki/Alternative-installation#if-you-dont-use-digitalocean) page. This will prevent you from spinning up another droplet on DO.
+
+Updating Mybema
+===============
+If you'd like to keep your Mybema instance up to date, you'll want to pull and deploy the changes that we add. To do some, simply `cd` into your Mybema Config directory and:
+
+    git pull
+    rake mybema:update
 
 Destroying the droplet
 ======================
